@@ -2,6 +2,7 @@ import sublime
 import sublime_plugin
 import urllib
 
+dpaste_settings = sublime.load_settings('dpaste.sublime-settings')
 DPASTE_API_URL = 'https://dpaste.de/api/'
 SEP = """
 
@@ -11,6 +12,7 @@ SEP = """
 
 """
 
+
 def paste_code(content, filename):
     data = urllib.parse.urlencode({
         'content': content,
@@ -19,7 +21,11 @@ def paste_code(content, filename):
         'format': 'default',
     })
     data = data.encode('utf8')
-    response = urllib.request.urlopen(DPASTE_API_URL, data)
+    url = '{}?expires={}'.format(
+        DPASTE_API_URL,
+        dpaste_settings.get('expires')
+    )
+    response = urllib.request.urlopen(url, data)
     return response.read()[1:-1]
 
 

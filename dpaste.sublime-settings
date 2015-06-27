@@ -1,0 +1,4 @@
+{
+    // http://dpaste.readthedocs.org/en/latest/api.html#expires-optional
+    "expires": 604800  // 6 days by defualt
+}
